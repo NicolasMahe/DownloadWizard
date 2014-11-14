@@ -1,0 +1,3 @@
+[submodule "phparse/library/NM-PHP-Libraries"]
+	path = phparse/library/NM-PHP-Libraries
+	url = git@github.com:NicolasMahe/PHP-Libraries.git

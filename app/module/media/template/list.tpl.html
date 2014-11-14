@@ -1,0 +1,31 @@
+<div id="mediaList">
+    <div class="row">
+        <div class="col col-md-6">
+            <h1 style="margin-top: 0px">Media list</h1>
+        </div>
+        <div class="col col-md-6 col-xs-12 loading text-right">
+            <span ng-if="loading>0">Loading</span>
+            <span style="vertical-align: middle; cursor: pointer; font-size: 28px;"
+                  ng-click="getList()"
+                  class="glyphicon glyphicon-refresh"
+                  ng-class="{'no-animation': loading==0}"
+                  ></span>
+        </div>
+    </div>
+    
+    <div class="row mediatheque">
+        <div class="col col-md-2" ng-repeat="item in list">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h4>{{item.title}} <small>{{item.year}}</small></h4>
+                </div>
+                <img
+                     ng-src="http://w.caprica.mahe.me/phparse{{item.posterLocal}}"
+                     loading-src="images/movie.svg"
+                     fallback-src="images/movie.svg"
+                />
+            </div>
+        </div>
+    </div>
+    
+</div>

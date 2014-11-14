@@ -1,0 +1,26 @@
+<div>
+    <div ng-if="metaResult" class="row">
+        <div class="col col-sm-3 text-center">
+            <a href="{{metaResult.imdbUrl}}"><img ng-src="phparse/?page=image&action=getBase64&url={{metaResult.poster}}" class="img-thumbnail" /></a>
+        </div>
+        <div class="col col-sm-9 text-justify">
+            <h2>{{metaResult.title}} 
+                <small style="vertical-align: top; margin-top: 5px; display: inline-block;">
+                    <a href="{{metaResult.imdbUrl}}"><span class="label label-success">{{metaResult.imdbRating}}/10</span></a>
+                </small>
+            </h2>
+            <h4>{{metaResult.year}} <small>{{metaResult.runtime}}</small></h4>
+            <p>{{metaResult.plot}}</p>
+            <p><strong>Director: </strong>{{metaResult.director}}</p>
+            <p><strong>Actors: </strong>{{metaResult.actors}}</p>
+            <p><strong>Writer: </strong>{{metaResult.writer}}</p>
+            <p><strong>Country </strong>{{metaResult.country}}</p>
+            <p><strong>Genre </strong>{{metaResult.genre}}</p>
+            <p>
+                <strong>IMDb: </strong>
+                <a href="{{metaResult.imdbUrl}}">{{metaResult.imdbRating}}/10 from {{metaResult.imdbVotes}} votes</a>
+            </p>
+        </div>
+    </div>
+    <div ng-if="!metaResult" class="text-center loading" style="width: 100%; line-height: 39px;">Loading<span style="vertical-align: middle;" class="glyphicon glyphicon-refresh"></span></div>
+</div>

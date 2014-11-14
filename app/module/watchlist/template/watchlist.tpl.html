@@ -1,0 +1,160 @@
+<div>
+    
+    <div class="page-header">
+        <div class="row">
+            <div class="col col-md-2">
+                <h1 style="margin-top: 0px">Watchlist</h1>
+            </div>
+            <div class="col col-md-5 col-sm-5"><h1 style="margin-top: 0px"><small>Last fetch on {{ lastFetch }}</small></h1></div>
+            <div class="col col-md-2 col-sm-2 col-xs-4" style="line-height: 42px;">
+                <div ng-if="isLoading" class="loading">Loading<span style="vertical-align: middle;" class="glyphicon glyphicon-refresh"></span></div>
+            </div>
+            <div class="col col-md-3 col-sm-5 col-xs-8 text-right" style="margin-left: 0px;">
+                <button type="button" class="btn btn-success" style="height: 39px; margin-bottom: 3px;" ng-click="fetchNow()">Fetch now!</button>
+                <button type="button" class="btn btn-primary" style="height: 39px; margin-bottom: 3px;" ng-click="showAdd()">Add a new item</button>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="watchListArray" class="table-responsive">
+        <table ng-if="watchListArray" class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Next episode</th>
+                    <th>Quality</th>
+                    <th>Tracker</th>
+                    <th class="text-center">Edit</th>
+                    <th class="text-center">Delete</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="item in watchListArray">
+                    <td class="text-center">
+                        <span ng-if="item.isDownloaded && (item.nextSeason ? dateShowIconDownloaded.isBefore(item.dateDownloaded) : true)" class="glyphicon glyphicon-saved text-success" style="font-size: 2em;" title="Downloaded the {{item.dateDownloaded}}"></span>
+                        <span ng-if="!(item.isDownloaded && (item.nextSeason ? dateShowIconDownloaded.isBefore(item.dateDownloaded) : true))" class="glyphicon glyphicon-eye-open" style="font-size: 2em;" title="In watch"></span>
+                    </td>
+                    <td style="vertical-align: middle; ">{{item.name}}</td>
+                    <td style="vertical-align: middle;">
+                        <span ng-if="item.nextSeason">
+                                S{{(item.nextSeason < 10 ? '0' : '')}}{{item.nextSeason}}E{{(item.nextEpisode < 10 ? '0' : '')}}{{item.nextEpisode}}
+                        </span>
+                    </td>
+                    <td style="vertical-align: middle;">
+                        <span class="label label-primary">{{item.quality}}</span>
+                        <span class="label label-primary">{{item.ripType}}</span>
+                    </td>
+                    <td style="vertical-align: middle;">
+                        {{item.tracker}}
+                    </td>
+                    <td style="vertical-align: middle;" class="text-center">
+                        <span class="glyphicon glyphicon-edit" style="cursor: pointer; font-size: 1.4em;" ng-click="showEdit(item, $index, $event)"></span>
+                    </td>
+                    <td style="vertical-align: middle;" class="text-center">
+                        <span class="glyphicon glyphicon-trash" style="cursor: pointer; font-size: 1.4em;" ng-click="showDelete(item, $index, $event)"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center" ng-if="watchListArray.length == 0">No item</div>
+
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="watchListModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">
+                    <span ng-if="editMode == false">Add a new item</span>
+                    <span ng-if="editMode == true">Edit a item</span>
+                </h4>
+          </div>
+
+          <form role="form" ng-submit="doAdd(itemTmp)">
+
+                  <div class="modal-body">
+
+                     <fieldset ng-disabled="isLoading">
+
+                                            <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Enter name" ng-model="itemTmp.name" required="">
+                                            </div>
+
+                                            <div class="form-group">
+                                                    <div class="form-inline">
+                                                        <input type="number" class="form-control" placeholder="Next season" ng-model="itemTmp.nextSeason" style="margin-bottom: 3px">
+                                                        <input type="number" class="form-control" placeholder="Next episode" ng-model="itemTmp.nextEpisode" style="margin-bottom: 3px">
+                                                    </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                    <label class="radio-inline">
+                                                            <input type="radio" ng-model="itemTmp.quality" value=""> None
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                            <input type="radio" ng-model="itemTmp.quality" value="720p"> 720p
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                            <input type="radio" ng-model="itemTmp.quality" value="1080p"> 1080p
+                                                    </label>
+                                            </div>
+
+                                            <div class="form-group">
+                                                    <label class="radio-inline">
+                                                            <input type="radio" ng-model="itemTmp.ripType" value=""> None
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                            <input type="radio" ng-model="itemTmp.ripType" value="BluRay"> BluRay
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                            <input type="radio" ng-model="itemTmp.ripType" value="WEB-DL"> WEB-DL
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                            <input type="radio" ng-model="itemTmp.ripType" value="HDTV"> HDTV
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                            <input type="radio" ng-model="itemTmp.ripType" value="WEBRIP"> WEBRIP
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                            <input type="radio" ng-model="itemTmp.ripType" value="BDRIP"> BDRIP
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                            <input type="radio" ng-model="itemTmp.ripType" value="BRRIP"> BRRIP
+                                                    </label>
+                                            </div>
+
+
+                                            <div class="form-group">
+                                                    <label class="radio-inline" ng-repeat="tracker in trackerArray" required="">
+                                                            <input type="radio" ng-model="itemTmp.tracker" value="{{tracker.name}}"> {{tracker.name}}
+                                                    </label>
+                                            </div>
+
+                                    </fieldset>
+
+                  </div>
+
+                  <div class="modal-footer">
+                    <!--<button type="reset" class="btn btn-default pull-left">Reset</button>-->
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">
+                            <span ng-if="editMode == false">Add</span>
+                            <span ng-if="editMode == true">Edit</span>
+                    </button>
+                  </div>
+
+              </form>
+
+        </div>
+      </div>
+    </div>
+
+
+</div>

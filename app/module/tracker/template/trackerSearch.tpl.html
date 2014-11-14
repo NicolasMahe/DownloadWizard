@@ -1,0 +1,40 @@
+<div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th ng-if="activeIMDb" class="text-center">IMDb</th>
+                    <th class="text-center">Size</th>
+                    <th class="text-center">Completed</th>
+                    <th class="text-center">Seeders</th>
+                    <th class="text-center">Leechers</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="result in trackerResult | orderBy:trackerOrderBy | limitTo:trackerLimitTo">
+                    <td class="text-center" style="vertical-align: middle;">
+                        <span class="glyphicon glyphicon-download-alt" style="cursor: pointer; font-size: 2em;" ng-click="addToDowload(result, $event)" title="Download now"></span>
+                    </td>
+                    <td style="vertical-align: middle;"><a ng-href="{{result.detailLink}}">{{result.title}}</a></td>
+                    <td ng-if="activeIMDb" style="vertical-align: middle;" class="text-center">
+                        <a ng-if="metaCache[result.cacheMetaName].imdbID" href="{{metaCache[result.cacheMetaName].imdbUrl}}">
+                            <span class="label label-success">{{metaCache[result.cacheMetaName].imdbRating}}/10</span>
+                        </a>
+                    </td>
+                    <td style="vertical-align: middle;" class="text-center">{{result.size}}</td>
+                    <td style="vertical-align: middle;" class="text-center">{{result.completed}}</td>
+                    <td style="vertical-align: middle;" class="text-center">{{result.seeders}}</td>
+                    <td style="vertical-align: middle;" class="text-center">{{result.leechers}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center" ng-if="trackerResult.length == 0">No result</div>
+    <div ng-if="isLoading" class="text-center loading" style="width: 100%; line-height: 39px;">Loading<span style="vertical-align: middle;" class="glyphicon glyphicon-refresh"></span></div>
+
+    <div><a ng-click="showAll()">Show all results</a> - <a ng-href="{{tracker.urlSearch}}{{searchValue}}">Show on {{tracker.name}}</a></div>
+</div>

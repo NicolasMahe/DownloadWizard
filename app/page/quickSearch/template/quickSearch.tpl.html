@@ -1,0 +1,37 @@
+<div class="container theme-showcase" role="main">
+
+    <div class="page-header">
+        <h1>Quick Search</h1>
+    </div>
+    
+    <form role="form" ng-submit="searchmeta=searchValueModel">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+                <input type="text" class="form-control" ng-model="searchValueModel" placeholder="Enter a title" id="typehead" data-provide="typeahead" autocomplete="off">
+            </div>
+        </div>
+        <button type="submit" style="display: none;" class="btn btn-default">Search</button>
+    </form>
+    
+    <div ng-if="searchmeta" class="panel panel-default" id="quickSearchResult">
+        <div class="panel-body">
+            <meta-search-directive search-value="{{searchmeta}}" select-item-function="metaSearchSelectItem"></meta-search-directive>
+        </div>
+    </div>
+    
+    <div ng-if="selectItemImdbID" class="panel panel-default">
+        <div class="panel-body">
+            <meta-get-directive imdb-id="{{selectItemImdbID}}" result-function="metaGetResult"></meta-get-directive>
+        </div>
+    </div>
+    
+    <div ng-if="searchvaluetracker" class="panel panel-default">
+        <div class="panel-body">
+            <h2>Download on IPTorrents</h2>
+
+            <tracker-search-directive search-value="{{searchvaluetracker}}" tracker-name="IPTorrents" tracker-limit-to="5" tracker-order-by="{{trackerorderby}}"></tracker-search-directive>
+        </div>
+    </div>
+
+</div><!-- /container --> 

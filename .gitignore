@@ -1,0 +1,6 @@
+phparse/config.json
+phparse/storage/*
+.DS_Store
+._*
+*~
+nbproject/

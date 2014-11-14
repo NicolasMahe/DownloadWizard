@@ -1,0 +1,177 @@
+<div id="downloaderTrackerList">
+    <div class="row">
+        <div class="col col-md-3">
+            <h1 style="margin-top: 0px">Torrents listing</h1>
+        </div>
+        <div class="col col-md-7 col-sm-7">
+            <div style="margin-top: 0px">
+                {{globalSpeed.download }} - L: {{speedLimit.download | bytes}}/s.<br/>{{globalSpeed.upload }} - L: {{speedLimit.upload | bytes}}/s</small>
+            </div>
+        </div>
+        <div class="col col-md-2 col-sm-2 col-xs-4 loading text-right">
+            <span ng-if="loading>0">Loading</span>
+            <span style="vertical-align: middle; cursor: pointer; font-size: 28px;"
+                  ng-click="getTorrentList()"
+                  class="glyphicon glyphicon-refresh"
+                  ng-class="{'no-animation': loading==0}"
+                  ></span>
+        </div>
+    </div>
+    
+    <div ng-if="torrentList" class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Name</th>
+                    <th></th>
+                    <th>Progress</th>
+                    <th>Dl Speed</th>
+                    <th>Up Speed</th>
+                    <th>ETA</th>
+                    <th>Seeders</th>
+                    <th>Leechers</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr ng-repeat="torrent in torrentList | orderBy:'name' | orderBy:'-downloadSpeed' | orderBy:'-uploadSpeed' | orderBy:'progress'" ng-click="torrent.rowIsActive = !torrent.rowIsActive" ng-class="{'active':torrent.rowIsActive}" >
+                    <td style="vertical-align: middle; text-align: center;" class="table-icon">
+                        <span ng-if="torrent.status=='play'" class="glyphicon glyphicon-play"></span>
+                        <span ng-if="torrent.status=='pause'" class="glyphicon glyphicon-pause"></span>
+                    </td>
+                    <td style="vertical-align: middle; ">{{torrent.name}}</td>
+                    <td style="vertical-align: middle; width: 200px; text-align: right;">
+                        <span class="glyphicon glyphicon-info-sign" ng-click="torrentInfo(torrent)" title="Info"></span>
+                        <span class="glyphicon glyphicon-subtitles" ng-click="torrentDownloadSubtitle(torrent)" title="Download subtitle"></span>
+                        <span class="glyphicon glyphicon-compressed" ng-click="torrentExtract(torrent)" title="Extract"></span>
+                        <span ng-if="torrent.status=='pause'" class="glyphicon glyphicon-play" ng-click="torrentResume(torrent)" title="Play"></span>
+                        <span ng-if="torrent.status=='play'" class="glyphicon glyphicon-pause" ng-click="torrentPause(torrent)" title="Pause"></span>
+                        <span class="glyphicon glyphicon-trash" ng-click="torrentDelete(torrent)" title="Remove torrent"></span>
+                    </td>
+                    <td style="vertical-align: middle; width: 14em;">
+                        <div class="progress">
+                            <div class="progress-bar"  ng-class="{'progress-bar-success': (torrent.progress == 1), '': (torrent.progress < 1)}" role="progressbar" aria-valuenow="{{torrent.progress * 100}}" aria-valuemin="0" aria-valuemax="100" style="min-width: 40px; width: {{torrent.progress * 100}}%">
+                                {{ torrent.progressPR }}%
+                            </div>
+                        </div>
+                    </td>
+                    <td style="vertical-align: middle;">{{torrent.downloadSpeed}}</td>
+                    <td style="vertical-align: middle;">{{torrent.uploadSpeed}}</td>
+                    <td style="vertical-align: middle;">{{torrent.eta}}</td>
+                    <td style="vertical-align: middle;">{{torrent.numberSeeders}}</td>
+                    <td style="vertical-align: middle;">{{torrent.numberLeechers}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center" ng-if="torrentList.length == 0">No item</div>
+    
+    
+    <!-- Modal -->
+    <div class="modal fade" id="DownloaderTorrentListModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">
+                Informations about : {{torrentCurrentInfo.torrent.name}}
+            </h4>
+          </div>
+
+            <div class="modal-body">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist" ng-init="tabActive=0">
+                    <li ng-class="{'active': tabActive==0}"><a ng-click="tabActive=0">Info</a></li>
+                    <li ng-class="{'active': tabActive==1}"><a ng-click="tabActive=1">Trackers</a></li>
+                    <li ng-class="{'active': tabActive==2}"><a ng-click="tabActive=2">Files</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div ng-class="{'active': tabActive==0}" class="tab-pane">
+                    
+                        <br/>
+                        <p><strong>Creation data : </strong>{{torrentCurrentInfo.info.creationDate}}</p>
+                        <p><strong>Time elapsed : </strong>{{torrentCurrentInfo.info.timeElapsed}}</p>
+                        <p><strong>Share ratio : </strong>{{torrentCurrentInfo.info.shareRatio}}</p>
+                        <p><strong>Total downloaded : </strong>{{torrentCurrentInfo.info.totalDownloaded}}</p>
+                        <p><strong>Total uploaded : </strong>{{torrentCurrentInfo.info.totalUploaded}}</p>
+                        <p><strong>Total wasted : </strong>{{torrentCurrentInfo.info.totalWasted}}</p>
+                    
+                    </div>
+                    <div ng-class="{'active': tabActive==1}" class="tab-pane">
+                    
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Url</th>
+                                        <th>Status</th>
+                                        <th>Message</th>
+                                        <th>Peers</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="tracker in torrentCurrentInfo.trackers">
+                                        <td style="vertical-align: middle; overflow: hidden; max-width: 170px;">{{tracker.url}}</td>
+                                        <td style="vertical-align: middle;">{{tracker.status}}</td>
+                                        <td style="vertical-align: middle;">{{tracker.message}}</td>
+                                        <td style="vertical-align: middle;">{{tracker.numberPeers}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                    <div ng-class="{'active': tabActive==2}" class="tab-pane">
+                        
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Size</th>
+                                        <th>Priority</th>
+                                        <th>Progress</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="file in torrentCurrentInfo.files">
+                                        <td style="vertical-align: middle;">{{file.name}}</td>
+                                        <td style="vertical-align: middle;">{{file.size}}</td>
+                                        <td style="vertical-align: middle;">{{file.priority}}</td>
+                                        <td style="vertical-align: middle; width: 14em;">
+                                            <div class="progress">
+                                                <div class="progress-bar"  ng-class="{'progress-bar-success': (file.progress == 1), '': (file.progress < 1)}" role="progressbar" aria-valuenow="{{file.progress * 100}}" aria-valuemin="10" aria-valuemax="100" style="min-width: 40px; width: {{file.progress * 100}}%">
+                                                    {{ file.progressPR }}%
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default pull-left glyphicon glyphicon-subtitles" title="Download subtitle" ng-click="torrentDownloadSubtitle(torrentCurrentInfo.torrent)"></button>
+              <button type="button" class="btn btn-default pull-left glyphicon glyphicon-compressed" title="Extract" ng-click="torrentExtract(torrentCurrentInfo.torrent)"></button>
+              <button ng-if="!torrentCurrentInfo.torrent.play" type="button" class="btn btn-default pull-left glyphicon glyphicon-play" title="Play" ng-click="torrentResume(torrentCurrentInfo.torrent)"></button>
+              <button ng-if="torrentCurrentInfo.torrent.play" type="button" class="btn btn-default pull-left glyphicon glyphicon-pause" title="Pause" ng-click="torrentPause(torrentCurrentInfo.torrent)"></button>
+              <button type="button" class="btn btn-default pull-left glyphicon glyphicon-trash" title="Remove torrent" ng-click="torrentDelete(torrentCurrentInfo.torrent)"></button>
+              
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+      </div>
+    </div>
+    
+</div>
