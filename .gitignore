@@ -1,5 +1,5 @@
-phparse/config.json
-phparse/storage/*
+backend/config.json
+backend/storage/*
 .DS_Store
 ._*
 *~
