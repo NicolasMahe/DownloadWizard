@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html lang="en" ng-app="downloadWizard">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="apple-touch-startup-image" href="apple-startup-image.png" />
+
+    <title>Caprica Download Wizard</title>
+    
+    <link href="frontend/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="frontend/css/style.css" rel="stylesheet" type="text/css">
+    
+    <script src="frontend/js/fastclick.js" type="text/javascript"></script>
+    
+    <script src="frontend/js/moment/moment.js" type="text/javascript"></script>
+    
+    <script src="frontend/js/jquery/jquery.min.js" type="text/javascript"></script>
+    <script src="frontend/js/bootstrap/bootstrap.min.js" type="text/javascript"></script>
+    
+    <script src="frontend/js/highstock.js"></script>
+    
+    <script src="frontend/js/angular/angular.min.js" type="text/javascript"></script>
+    <script src="frontend/js/angular/angular-route.min.js" type="text/javascript"></script>
+    <script src="frontend/js/angular/angular-sanitize.min.js" type="text/javascript"></script>
+    <script src="frontend/js/angular/lib/angular-filter-bytes.js" type="text/javascript"></script>
+    <script src="frontend/js/angular/lib/angular.dcb-img-fallback.js" type="text/javascript"></script>
+    
+    <script src="frontend/js/bootstrap/ui-bootstrap-tpls-0.11.0.min.js" type="text/javascript"></script>
+    
+    <!-- app -->
+    <script src="frontend/app/bootstrap.js" type="text/javascript"></script>
+    
+    
+    <!-- plugin -->
+    <script src="frontend/js/bootstrap/bootstrap3-typeahead.min.js" type="text/javascript"></script>
+    
+    <!-- webservice -->
+    <script src="frontend/app/webservice/webservice.js" type="text/javascript"></script>
+    <script src="frontend/app/webservice/log.js" type="text/javascript"></script>
+    <script src="frontend/app/webservice/watchlist.js" type="text/javascript"></script>
+    <script src="frontend/app/webservice/cron.js" type="text/javascript"></script>
+    <script src="frontend/app/webservice/tracker.js" type="text/javascript"></script>
+    <script src="frontend/app/webservice/meta.js" type="text/javascript"></script>
+    <script src="frontend/app/webservice/qBittorrent.js" type="text/javascript"></script>
+    <script src="frontend/app/webservice/subtitle.js" type="text/javascript"></script>
+    <script src="frontend/app/webservice/library.js" type="text/javascript"></script>
+    <script src="frontend/app/webservice/media.js" type="text/javascript"></script>
+    <script src="frontend/app/webservice/networkMonitor.js" type="text/javascript"></script>
+    
+    <!-- module -->
+    <script src="frontend/app/module/module.js" type="text/javascript"></script>
+    <!-- tracker -->
+    <script src="frontend/app/module/tracker/tracker.js" type="text/javascript"></script>
+    <script src="frontend/app/module/tracker/controller/trackerSearch.js" type="text/javascript"></script>
+    <script src="frontend/app/module/tracker/directive/trackerSearch.js" type="text/javascript"></script>
+    <!-- watchlist -->
+    <script src="frontend/app/module/watchlist/watchlist.js" type="text/javascript"></script>
+    <script src="frontend/app/module/watchlist/controller/watchlist.js" type="text/javascript"></script>
+    <script src="frontend/app/module/watchlist/directive/watchlist.js" type="text/javascript"></script>
+    <!-- downloader -->
+    <script src="frontend/app/module/downloader/downloader.js" type="text/javascript"></script>
+    <script src="frontend/app/module/downloader/controller/torrentList.js" type="text/javascript"></script>
+    <script src="frontend/app/module/downloader/directive/torrentList.js" type="text/javascript"></script>
+    <!-- log -->
+    <script src="frontend/app/module/log/log.js" type="text/javascript"></script>
+    <script src="frontend/app/module/log/controller/log.js" type="text/javascript"></script>
+    <script src="frontend/app/module/log/directive/log.js" type="text/javascript"></script>
+    <!-- library -->
+    <script src="frontend/app/module/library/library.js" type="text/javascript"></script>
+    <script src="frontend/app/module/library/controller/movieList.js" type="text/javascript"></script>
+    <script src="frontend/app/module/library/directive/movieList.js" type="text/javascript"></script>
+    <!-- media -->
+    <script src="frontend/app/module/media/media.js" type="text/javascript"></script>
+    <script src="frontend/app/module/media/controller/list.js" type="text/javascript"></script>
+    <script src="frontend/app/module/media/directive/list.js" type="text/javascript"></script>
+    <!-- meta -->
+    <script src="frontend/app/module/meta/meta.js" type="text/javascript"></script>
+    <script src="frontend/app/module/meta/controller/metaSearch.js" type="text/javascript"></script>
+    <script src="frontend/app/module/meta/controller/metaGet.js" type="text/javascript"></script>
+    <script src="frontend/app/module/meta/directive/metaSearch.js" type="text/javascript"></script>
+    <script src="frontend/app/module/meta/directive/metaGet.js" type="text/javascript"></script>
+    <!-- layout -->
+    <script src="frontend/app/module/layout/layout.js" type="text/javascript"></script>
+    <script src="frontend/app/module/layout/controller/header.js" type="text/javascript"></script>
+    <script src="frontend/app/module/layout/directive/header.js" type="text/javascript"></script>
+    <script src="frontend/app/module/layout/directive/subHeader.js" type="text/javascript"></script>
+    <!-- networkMonitor -->
+    <script src="frontend/app/module/networkMonitor/networkMonitor.js" type="text/javascript"></script>
+    <script src="frontend/app/module/networkMonitor/controller/graphTraffic.js" type="text/javascript"></script>
+    <script src="frontend/app/module/networkMonitor/directive/graphTraffic.js" type="text/javascript"></script>
+    
+    <!-- page -->
+    <script src="frontend/app/page/page.js" type="text/javascript"></script>
+    <!-- home -->
+    <script src="frontend/app/page/home/controller/home.js" type="text/javascript"></script>
+    <!-- log -->
+    <script src="frontend/app/page/log/controller/log.js" type="text/javascript"></script>
+    <!-- watchlist -->
+    <script src="frontend/app/page/watchlist/controller/watchlist.js" type="text/javascript"></script>
+    <!-- downloader -->
+    <script src="frontend/app/page/downloader/controller/downloader.js" type="text/javascript"></script>
+    <!-- quicksearch -->
+    <script src="frontend/app/page/quickSearch/controller/quickSearch.js" type="text/javascript"></script>
+    <!-- library -->
+    <script src="frontend/app/page/library/controller/library.js" type="text/javascript"></script>
+    <!-- media -->
+    <script src="frontend/app/page/media/controller/media.js" type="text/javascript"></script>
+    <!-- search -->
+    <script src="frontend/app/page/search/controller/search.js" type="text/javascript"></script>
+    <script src="frontend/app/page/search/directive/tracker.js" type="text/javascript"></script>
+    <!-- networkMonitor -->
+    <script src="frontend/app/page/networkMonitor/controller/networkMonitor.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+	<header-directive></header-directive>
+	
+	<div ng-view></div>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+angular.module('module_library', ['ui.bootstrap', 'filterBytes', 'dcbImgFallback']);

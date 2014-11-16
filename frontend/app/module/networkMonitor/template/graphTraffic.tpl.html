@@ -1,0 +1,20 @@
+<div id="networkMonitorGraphTraffic">
+    <div class="row">
+        <div class="col col-xs-3">
+            <h1 style="margin-top: 0px">Traffic</h1>
+        </div>
+        <div class="col col-xs-9 loading text-right" style="line-height: 49px;">
+            <span ng-if="loading>0">Loading</span>
+            <span style="vertical-align: baseline; cursor: pointer; font-size: 28px;"
+                  ng-click="getData()"
+                  class="glyphicon glyphicon-refresh"
+                  ng-class="{'no-animation': loading==0}"
+                  ></span>
+        </div>
+    </div>
+    
+    <div>
+        <div id="graphTrafficContainerUpload" style="width:100%; height:400px;"></div>
+        <div id="graphTrafficContainerDownload" style="width:100%; height:400px;"></div>
+    </div>
+</div>

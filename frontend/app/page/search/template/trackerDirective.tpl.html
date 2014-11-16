@@ -1,0 +1,20 @@
+<div>
+    <div ng-repeat="tracker in trackerArray">
+        <div class="page-header">
+                <div ng-if="isLoadingArray[tracker.name]" class="pull-right loading" style="line-height: 39px;">Loading<span style="vertical-align: middle;" class="glyphicon glyphicon-refresh"></span></div>
+            <h1>Search on {{tracker.name}}</h1>
+        </div>
+
+        <form role="form" ng-submit="searchvalueset=searchvalue">
+                  <div class="form-group">
+                          <div class="input-group">
+                                  <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+                                  <input type="text" class="form-control" ng-model="searchvalue" placeholder="Enter a search">
+                          </div>
+                  </div>
+        </form>
+        
+        <tracker-search-directive ng-if="searchvalueset" active-imdb="true" search-value="{{searchvalueset}}" tracker-name="{{tracker.name}}" tracker-limit-to="999" tracker-order-by=""></tracker-search-directive>
+
+    </div>
+</div>

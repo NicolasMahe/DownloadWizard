@@ -1,0 +1,3 @@
+[submodule "backend/library/NM-PHP-Libraries"]
+	path = backend/library/NM-PHP-Libraries
+	url = git@github.com:NicolasMahe/PHP-Libraries.git

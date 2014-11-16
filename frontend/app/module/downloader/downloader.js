@@ -1,0 +1,1 @@
+angular.module('module_downloader', ['ui.bootstrap', 'filterBytes']);

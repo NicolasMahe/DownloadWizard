@@ -1,0 +1,1 @@
+angular.module('module', ['tracker', 'layout', 'module_watchlist', 'module_log', 'module_meta', 'module_downloader', 'module_library', 'module_media', 'module_networkMonitor']);

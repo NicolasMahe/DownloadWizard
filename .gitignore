@@ -1,0 +1,6 @@
+backend/config.json
+backend/storage/*
+.DS_Store
+._*
+*~
+nbproject/
