@@ -32,7 +32,7 @@ class IPTorrents
 				$title = !empty($result->find('a.t_title', 0)) ? $result->find('a.t_title', 0)->innertext : "";
 				$downloadLink = !empty($result->find('a', 3)) ? $result->find('a', 3)->href : "";
 				$size = !empty($result->find('td', 5)) ? $result->find('td', 5)->innertext : "";
-				$completed = !empty($result->find('td', 6)) ? $result->find('td', 6)->innertext : "";
+				$completed = !empty($result->find('td', 6)) ? $result->find('td', 6)->find('a', 0)->innertext : "";
 				$seeders = !empty($result->find('td', 7)) ? $result->find('td', 7)->innertext : "";
 				$leechers = !empty($result->find('td', 8)) ? $result->find('td', 8)->innertext : "";
 				
