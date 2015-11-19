@@ -1,5 +1,5 @@
 <div>
-    
+
     <div class="page-header">
         <div class="row">
             <div class="col col-md-2">
@@ -21,6 +21,7 @@
             <thead>
                 <tr>
                     <th></th>
+                    <th class="text-center">Active</th>
                     <th>Name</th>
                     <th>Next episode</th>
                     <th>Quality</th>
@@ -35,6 +36,10 @@
                     <td class="text-center">
                         <span ng-if="item.isDownloaded && (item.nextSeason ? dateShowIconDownloaded.isBefore(item.dateDownloaded) : true)" class="glyphicon glyphicon-saved text-success" style="font-size: 2em;" title="Downloaded the {{item.dateDownloaded}}"></span>
                         <span ng-if="!(item.isDownloaded && (item.nextSeason ? dateShowIconDownloaded.isBefore(item.dateDownloaded) : true))" class="glyphicon glyphicon-eye-open" style="font-size: 2em;" title="In watch"></span>
+                    </td>
+                    <td class="text-center">
+                        <span ng-if="item.isActive" class="glyphicon glyphicon-play" style="font-size: 2em;" title="Active"></span>
+                        <span ng-if="!item.isActive" class="glyphicon glyphicon-stop" style="font-size: 2em;" title="Not active"></span>
                     </td>
                     <td style="vertical-align: middle; ">{{item.name}}</td>
                     <td style="vertical-align: middle;">
@@ -134,6 +139,13 @@
                                             <div class="form-group">
                                                     <label class="radio-inline" ng-repeat="tracker in trackerArray" required="">
                                                             <input type="radio" ng-model="itemTmp.tracker" value="{{tracker.name}}"> {{tracker.name}}
+                                                    </label>
+                                            </div>
+
+
+                                            <div class="checkbox">
+                                                    <label>
+                                                            <input type="checkbox" ng-model="itemTmp.isActive"> Active watch
                                                     </label>
                                             </div>
 

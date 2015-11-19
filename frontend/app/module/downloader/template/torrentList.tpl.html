@@ -17,7 +17,7 @@
                   ></span>
         </div>
     </div>
-    
+
     <div ng-if="torrentList" class="table-responsive">
         <table class="table table-hover">
             <thead>
@@ -40,8 +40,8 @@
                         <span ng-if="torrent.status=='play'" class="glyphicon glyphicon-play"></span>
                         <span ng-if="torrent.status=='pause'" class="glyphicon glyphicon-pause"></span>
                     </td>
-                    <td style="vertical-align: middle; ">{{torrent.name}}</td>
-                    <td style="vertical-align: middle; width: 200px; text-align: right;">
+                    <td style="vertical-align: middle; word-wrap: break-word; max-width: 400px; overflow: scroll">{{torrent.name}}</td>
+                    <td style="vertical-align: middle; width: 200px; min-width: 200px; text-align: right;">
                         <span class="glyphicon glyphicon-info-sign" ng-click="torrentInfo(torrent)" title="Info"></span>
                         <span class="glyphicon glyphicon-subtitles" ng-click="torrentDownloadSubtitle(torrent)" title="Download subtitle"></span>
                         <span class="glyphicon glyphicon-compressed" ng-click="torrentExtract(torrent)" title="Extract"></span>
@@ -67,8 +67,8 @@
     </div>
 
     <div class="text-center" ng-if="torrentList.length == 0">No item</div>
-    
-    
+
+
     <!-- Modal -->
     <div class="modal fade" id="DownloaderTorrentListModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
@@ -90,7 +90,7 @@
                 </ul>
                 <div class="tab-content">
                     <div ng-class="{'active': tabActive==0}" class="tab-pane">
-                    
+
                         <br/>
                         <p><strong>Creation data : </strong>{{torrentCurrentInfo.info.creationDate}}</p>
                         <p><strong>Time elapsed : </strong>{{torrentCurrentInfo.info.timeElapsed}}</p>
@@ -98,10 +98,10 @@
                         <p><strong>Total downloaded : </strong>{{torrentCurrentInfo.info.totalDownloaded}}</p>
                         <p><strong>Total uploaded : </strong>{{torrentCurrentInfo.info.totalUploaded}}</p>
                         <p><strong>Total wasted : </strong>{{torrentCurrentInfo.info.totalWasted}}</p>
-                    
+
                     </div>
                     <div ng-class="{'active': tabActive==1}" class="tab-pane">
-                    
+
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
@@ -123,10 +123,10 @@
                                 </tbody>
                             </table>
                         </div>
-                        
+
                     </div>
                     <div ng-class="{'active': tabActive==2}" class="tab-pane">
-                        
+
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
@@ -154,7 +154,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        
+
                     </div>
                 </div>
 
@@ -166,12 +166,12 @@
               <button ng-if="!torrentCurrentInfo.torrent.play" type="button" class="btn btn-default pull-left glyphicon glyphicon-play" title="Play" ng-click="torrentResume(torrentCurrentInfo.torrent)"></button>
               <button ng-if="torrentCurrentInfo.torrent.play" type="button" class="btn btn-default pull-left glyphicon glyphicon-pause" title="Pause" ng-click="torrentPause(torrentCurrentInfo.torrent)"></button>
               <button type="button" class="btn btn-default pull-left glyphicon glyphicon-trash" title="Remove torrent" ng-click="torrentDelete(torrentCurrentInfo.torrent)"></button>
-              
+
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
 
         </div>
       </div>
     </div>
-    
+
 </div>
