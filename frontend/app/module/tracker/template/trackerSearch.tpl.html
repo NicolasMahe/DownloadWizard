@@ -7,6 +7,7 @@
                     <th>Title</th>
                     <th ng-if="activeIMDb" class="text-center">IMDb</th>
                     <th class="text-center">Size</th>
+                    <th class="text-center">Files</th>
                     <th class="text-center">Completed</th>
                     <th class="text-center">Seeders</th>
                     <th class="text-center">Leechers</th>
@@ -25,6 +26,7 @@
                         </a>
                     </td>
                     <td style="vertical-align: middle;" class="text-center">{{result.size}}</td>
+                    <td style="vertical-align: middle;" class="text-center">{{result.files}}</td>
                     <td style="vertical-align: middle;" class="text-center">{{result.completed}}</td>
                     <td style="vertical-align: middle;" class="text-center">{{result.seeders}}</td>
                     <td style="vertical-align: middle;" class="text-center">{{result.leechers}}</td>

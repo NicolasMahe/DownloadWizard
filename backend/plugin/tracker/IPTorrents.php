@@ -16,26 +16,27 @@ class IPTorrents
 	public function search($search)
 	{
 		$url = $this->config['urlSearch'].urlencode($search);
-			
+
 		$resultArray = array();
-		
+
         $contentToParse = HTTP::get($url, Config::get("trackerIPTorrentsHeader"));
 
 		if($contentToParse)
 		{
 			$domParser = str_get_html($contentToParse);
-			
-			
+
+
 			foreach($domParser->find('table.torrents tr') as $result)
-			{	
+			{
 				$detailLink = !empty($result->find('a.t_title', 0)) ? $result->find('a.t_title', 0)->href : "";
 				$title = !empty($result->find('a.t_title', 0)) ? $result->find('a.t_title', 0)->innertext : "";
 				$downloadLink = !empty($result->find('a', 3)) ? $result->find('a', 3)->href : "";
 				$size = !empty($result->find('td', 5)) ? $result->find('td', 5)->innertext : "";
-				$completed = !empty($result->find('td', 6)) ? $result->find('td', 6)->find('a', 0)->innertext : "";
-				$seeders = !empty($result->find('td', 7)) ? $result->find('td', 7)->innertext : "";
-				$leechers = !empty($result->find('td', 8)) ? $result->find('td', 8)->innertext : "";
-				
+				$files = !empty($result->find('td', 6)) ? $result->find('td', 6)->find('a', 0)->innertext : "";
+				$completed = !empty($result->find('td', 7)) ? $result->find('td', 7)->innertext : "";
+				$seeders = !empty($result->find('td', 8)) ? $result->find('td', 8)->innertext : "";
+				$leechers = !empty($result->find('td', 9)) ? $result->find('td', 9)->innertext : "";
+
 				if(!empty($title))
 				{
 					$resultArray[] = array(
@@ -45,21 +46,22 @@ class IPTorrents
 						"size" => $size,
 						"completed" => $completed,
 						"seeders" => $seeders,
-						"leechers" => $leechers
+						"leechers" => $leechers,
+						"files" => $files
 					);
 				}
 			}
-			
+
 			array_splice($resultArray, 0, 1);
 		}
 		else
 		{
 			Error::add("error get content of '".$url."'");
 		}
-	
+
 		return $resultArray;
 	}
-	
+
     /**
      * download a torrent
      * @param string $fileToDownload
@@ -68,9 +70,9 @@ class IPTorrents
 	public function download($fileToDownload)
 	{
 		$url = str_replace(' ', '.', $fileToDownload);
-        
+
         $torrentfile = HTTP::get($url, Config::get("trackerIPTorrentsHeader"));
-		
+
 		if(!empty($torrentfile))
 		{
 			$downloadFile = pathinfo($fileToDownload);
