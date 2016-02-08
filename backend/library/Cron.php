@@ -29,6 +29,9 @@ class Cron
 				if(!empty($watch['quality']))
 					$search .= " ".$watch['quality'];
 
+				if(!empty($watch['ripType']))
+					$search .= " ".$watch['ripType'];
+
 
 
 				//do search on appropriate tracker
@@ -42,10 +45,29 @@ class Cron
 
 				if(count($data) > 0)
 				{
-					$returnArray[] = 'Match for "'.$search.'"';
+					$itemToDl = null;
+					//check for files number
+					if ($watch['files'] > 0) {
+						foreach ($data as $item) {
+							if ($item['files'] <= $watch['files']) {
+								//ok
+								$itemToDl = $item;
+								break;
+							}
+						}
+					}
+					else {
+						//take the first
+						$itemToDl = $data[0];
+					}
 
-					//take the first
-					$itemToDl = $data[0];
+					if ($itemToDl == null) {
+						//nothing found
+						break;
+					}
+
+
+					$returnArray[] = 'Match for "'.$search.'"';
 
 					Log::add('cron', 'match', 'A torrent match the search: "'.$search.'", torrent: "'.$itemToDl['title'].'"');
 
