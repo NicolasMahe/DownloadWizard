@@ -38,12 +38,6 @@ class Cron
 				$tracker = new Tracker($watch['tracker']);
 				$data = $tracker->search($search);
 
-				usort($data, function ($elem1, $elem2) {
-				    return $elem1['files'] - $elem2['files'];
-				});
-
-
-
 				//sort array by completed
 				usort($data, 'cmp');
 
