@@ -39,10 +39,7 @@ class Cron
 				$data = $tracker->search($search);
 
 				usort($data, function ($elem1, $elem2) {
-					if (isset($elem1['files']) && isset($elem2['files'])) {
-					    return $elem1['files'] - $elem2['files'];
-					}
-					return 1;
+				    return $elem1['files'] - $elem2['files'];
 				});
 
 
@@ -54,7 +51,7 @@ class Cron
 				{
 					$itemToDl = null;
 					//check for files number
-					if ($watch['files'] > 0) {
+					if (isset($watch['files']) && $watch['files'] > 0) {
 						foreach ($data as $item) {
 							if ($item['files'] <= $watch['files']) {
 								//ok
