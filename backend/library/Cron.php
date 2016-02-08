@@ -37,9 +37,11 @@ class Cron
 				//do search on appropriate tracker
 				$tracker = new Tracker($watch['tracker']);
 				$data = $tracker->search($search);
-				print_r($data);
+
 				usort($data, function ($elem1, $elem2) {
-				     return $elem1['files'] - $elem2['files'];
+					print_r($elem1['files']);
+					print_r($elem2['files']);
+				    return $elem1['files'] - $elem2['files'];
 				});
 
 
