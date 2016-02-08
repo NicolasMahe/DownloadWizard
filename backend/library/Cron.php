@@ -39,9 +39,10 @@ class Cron
 				$data = $tracker->search($search);
 
 				usort($data, function ($elem1, $elem2) {
-					print_r($elem1['files']);
-					print_r($elem2['files']);
-				    return $elem1['files'] - $elem2['files'];
+					if (isset($elem1['files'] && $elem2['files'])) {
+					    return $elem1['files'] - $elem2['files'];
+					}
+					return 1;
 				});
 
 
