@@ -15,11 +15,12 @@ class Cron
 
         $watchlist = new Table('watchlist');
         $watchlistData = $watchlist->getAll();
+
 		foreach($watchlistData as $watch)
 		{
+
 			if(((!$watch['isDownloaded'] || (!empty($watch['nextSeason']) && !empty($watch['nextEpisode']))) && !empty($watch['tracker'])) && (isset($watch['isActive']) && $watch['isActive']))
 			{
-
 				//construct search
 				$search = $watch['name'];
 
@@ -59,44 +60,44 @@ class Cron
 						$itemToDl = $data[0];
 					}
 
-					if ($itemToDl == null) {
-						//nothing found
-						break;
-					}
+					if ($itemToDl != null) {
+						//found
 
 
-					$returnArray[] = 'Match for "'.$search.'"';
+						$returnArray[] = 'Match for "'.$search.'"';
 
-					Log::add('cron', 'match', 'A torrent match the search: "'.$search.'", torrent: "'.$itemToDl['title'].'"');
+						Log::add('cron', 'match', 'A torrent match the search: "'.$search.'", torrent: "'.$itemToDl['title'].'"');
 
-					$result = $tracker->download($itemToDl['downloadLink']);
+						$result = $tracker->download($itemToDl['downloadLink']);
 
-					if($result)
-					{
-						//delete from watchlistCopy
-						$watch['isDownloaded'] = true;
-						$watch['dateDownloaded'] = date("Y-m-d H:i:s");
-
-						if(!empty($watch['nextSeason']) && !empty($watch['nextEpisode']))
+						if($result)
 						{
-							$watch['nextEpisode']++;
+							//delete from watchlistCopy
+							$watch['isDownloaded'] = true;
+							$watch['dateDownloaded'] = date("Y-m-d H:i:s");
+
+							if(!empty($watch['nextSeason']) && !empty($watch['nextEpisode']))
+							{
+								$watch['nextEpisode']++;
+							}
+
+	                        $retour = $watchlist->update($watch);
+
+	                        if(!$retour)
+	                        {
+	                            Error::add('error during update cron watchlist item');
+	                            Response::setStatus('error');
+	                        }
+
+							Log::add("cron", "fetch", "success", "New torrent add : '".$itemToDl['title']."'");
+							//send a mail to notify
+							/*mail(
+								'nicolas@mahe.me',
+								'Caprica Download Wizard - Download added',
+								'Hello Nicolas,\n\r\n\ra new torrent has been added to your torrent client.\n\r\n\rSearch: "'.$search.'"\n\r\n\rTorrent: "'.$itemToDl['title'].'"'
+							);*/
 						}
 
-                        $retour = $watchlist->update($watch);
-
-                        if(!$retour)
-                        {
-                            Error::add('error during update cron watchlist item');
-                            Response::setStatus('error');
-                        }
-
-						Log::add("cron", "fetch", "success", "New torrent add : '".$itemToDl['title']."'");
-						//send a mail to notify
-						/*mail(
-							'nicolas@mahe.me',
-							'Caprica Download Wizard - Download added',
-							'Hello Nicolas,\n\r\n\ra new torrent has been added to your torrent client.\n\r\n\rSearch: "'.$search.'"\n\r\n\rTorrent: "'.$itemToDl['title'].'"'
-						);*/
 					}
 				}
 				else
