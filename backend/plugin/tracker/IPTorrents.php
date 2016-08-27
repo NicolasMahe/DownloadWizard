@@ -26,7 +26,7 @@ class IPTorrents
 			$domParser = str_get_html($contentToParse);
 
 
-			foreach($domParser->find('table.torrents tr') as $result)
+			foreach($domParser->find('table[id=torrents] tr') as $result)
 			{
 				$detailLink = !empty($result->find('a.t_title', 0)) ? $result->find('a.t_title', 0)->href : "";
 				$title = !empty($result->find('a.t_title', 0)) ? $result->find('a.t_title', 0)->innertext : "";
@@ -34,8 +34,8 @@ class IPTorrents
 				$size = !empty($result->find('td', 5)) ? $result->find('td', 5)->innertext : "";
 				$files = !empty($result->find('td', 6)) ? $result->find('td', 6)->find('a', 0)->innertext : "";
 				$completed = !empty($result->find('td', 7)) ? $result->find('td', 7)->innertext : "";
-				$seeders = !empty($result->find('td', 8)) ? $result->find('td', 8)->innertext : "";
-				$leechers = !empty($result->find('td', 9)) ? $result->find('td', 9)->innertext : "";
+				$seeders = !empty($result->find('td.t_seeders', 0)) ? $result->find('td.t_seeders', 0)->innertext : "";
+				$leechers = !empty($result->find('td.t_leechers', 0)) ? $result->find('td.t_leechers', 0)->innertext : "";
 
 				if(!empty($title))
 				{
