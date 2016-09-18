@@ -33,7 +33,7 @@ class CronController
             Response::setStatus('success');
             Response::setData($data);
         } else {
-            Error::add('hash is empty');
+            ErrorPerso::add('hash is empty');
             Response::setStatus('error');
         }
     }

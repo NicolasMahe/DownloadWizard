@@ -21,25 +21,25 @@ class Subtitle
 
                 if(!$methodExistsSearch)
                 {
-                        Error::add('subtitle method search do not exist');
+                        ErrorPerso::add('subtitle method search do not exist');
                         $this->subtitle = null;
                         return;
                 }
                 if(!$methodExistsDownload)
                 {
-                        Error::add('subtitle method download do not exist');
+                        ErrorPerso::add('subtitle method download do not exist');
                         $this->subtitle = null;
                         return;
                 }
             }
             else
             {
-                Error::add('subtitle "'.$subtitle.'" is unknown');
+                ErrorPerso::add('subtitle "'.$subtitle.'" is unknown');
             }
         }
         else
         {
-            Error::add('subtitle is empty');
+            ErrorPerso::add('subtitle is empty');
         }
     }
 
@@ -78,13 +78,13 @@ class Subtitle
                 }
                 else {
                     Log::add('subtitle', 'downloadFirst', 'error', 'Subtitle is empty: "'.$search.'"');
-                    Error::add("subtitle download first failed: subtitle is empty: '".$search."'");
+                    ErrorPerso::add("subtitle download first failed: subtitle is empty: '".$search."'");
                 }
                 
                 return $retour;
             } else {
                 Log::add('subtitle', 'downloadFirst', 'error', 'No result for subtitle : "'.$search.'"');
-                Error::add("subtitle download first failed: no result for subtitle: '".$search."'");
+                ErrorPerso::add("subtitle download first failed: no result for subtitle: '".$search."'");
             }
             
             return false;

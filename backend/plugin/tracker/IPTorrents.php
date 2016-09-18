@@ -56,7 +56,7 @@ class IPTorrents
 		}
 		else
 		{
-			Error::add("error get content of '".$url."'");
+			ErrorPerso::add("error get content of '".$url."'");
 		}
 
 		return $resultArray;
@@ -81,7 +81,7 @@ class IPTorrents
 		}
 		else
 		{
-			Error::add('Download failed, data are empty');
+			ErrorPerso::add('Download failed, data are empty');
 		}
 	}
 }

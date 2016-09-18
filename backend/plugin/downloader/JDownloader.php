@@ -22,7 +22,7 @@ class JDownloader
         }
         else
         {
-            Error::add('JDownloader Download failed, data are empty');
+            ErrorPerso::add('JDownloader Download failed, data are empty');
             return false;
         }
     }

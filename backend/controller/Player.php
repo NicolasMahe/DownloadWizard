@@ -13,7 +13,7 @@ class PlayerController
 
             Response::setStatus('success');
         } else {
-            Error::add('filepath is empty');
+            ErrorPerso::add('filepath is empty');
             Response::setStatus('error');
         }
     }

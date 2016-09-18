@@ -13,7 +13,7 @@ class ImageController {
         }
         else
         {
-            Error::add('url is empty');
+            ErrorPerso::add('url is empty');
         }
     }
 }

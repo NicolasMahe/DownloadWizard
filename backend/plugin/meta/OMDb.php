@@ -30,7 +30,7 @@ class OMDb
 
             if($data === false)
             {
-                Error::add('Error during decoding json from OMDb url "'.$urlComplete.'"');
+                ErrorPerso::add('Error during decoding json from OMDb url "'.$urlComplete.'"');
             }
             else
             {
@@ -96,7 +96,7 @@ class OMDb
 
             if($data === false)
             {
-                Error::add('Error during decoding json from OMDb url "'.$urlComplete.'"');
+                ErrorPerso::add('Error during decoding json from OMDb url "'.$urlComplete.'"');
             }
             else
             {

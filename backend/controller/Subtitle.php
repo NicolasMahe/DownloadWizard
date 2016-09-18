@@ -16,7 +16,7 @@ class SubtitleController
             Response::setStatus('success');
             Response::setData($result);
         } else {
-            Error::add("search is empty");
+            ErrorPerso::add("search is empty");
             Response::setStatus('error');
         }
         
@@ -39,7 +39,7 @@ class SubtitleController
                 Response::setStatus('error');
             }
         } else {
-            Error::add("search is empty");
+            ErrorPerso::add("search is empty");
             Response::setStatus('error');
         }
     }

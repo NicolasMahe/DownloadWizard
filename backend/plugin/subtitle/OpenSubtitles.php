@@ -19,7 +19,7 @@ class OpenSubtitles
         $response = HTTP::post(self::API_URL, array("", "", "", 'OS Test User Agent'), "", false, "LogIn");
         
         if (empty($response['status']) || $response['status'] != '200 OK') {
-            Error::add("OpenSubtitles: login failed");
+            ErrorPerso::add("OpenSubtitles: login failed");
         } else {
             $this->token = $response['token'];
             return $this->token;
@@ -43,7 +43,7 @@ class OpenSubtitles
                 "", false, "SearchSubtitles");
         
         if($response['status'] != '200 OK') {
-            Error::add("OpenSubtitles: search failed");
+            ErrorPerso::add("OpenSubtitles: search failed");
         }
         else {
             if(!empty($response['data'])) {
@@ -92,7 +92,7 @@ class OpenSubtitles
             return true;
         }
         else {
-            Error::add("OpenSubtitles download failed: file is empty");
+            ErrorPerso::add("OpenSubtitles download failed: file is empty");
         }
         
         return false;

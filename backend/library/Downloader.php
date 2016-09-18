@@ -20,19 +20,19 @@ class Downloader
 
                             if(!$methodExistsAdd)
                             {
-                                    Error::add('downloader method add do not exist');
+                                    ErrorPerso::add('downloader method add do not exist');
                                     $this->downloader = null;
                                     return;
                             }
                     }
                     else
                     {
-                            Error::add('downloader "'.$downloader.'" is unknown');
+                            ErrorPerso::add('downloader "'.$downloader.'" is unknown');
                     }
             }
             else
             {
-                    Error::add('downloader is empty');
+                    ErrorPerso::add('downloader is empty');
             }
     }
 

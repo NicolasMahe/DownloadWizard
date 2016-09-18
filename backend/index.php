@@ -10,7 +10,7 @@ include("library/NM-PHP-Libraries/CrudControllerModel.php");
 include("library/NM-PHP-Libraries/Log.php");
 include("library/NM-PHP-Libraries/Date.php");
 include("library/NM-PHP-Libraries/Response.php");
-include("library/NM-PHP-Libraries/Error.php");
+include("library/NM-PHP-Libraries/ErrorPerso.php");
 include("library/NM-PHP-Libraries/Config.php");
 include("library/NM-PHP-Libraries/Request.php");
 include("library/NM-PHP-Libraries/Storage.php");
@@ -46,14 +46,14 @@ $action = strtolower(Request::get('action'));
 if(!empty($page) && !empty($action))
 {
 	$controllerPath = Config::get('controllerPath').'/'.$page.'.php';
-	
+
 	$fileExist = file_exists($controllerPath);
 	if($fileExist)
 	{
 		include($controllerPath);
 		$controllerName = $page.'Controller';
 		$controller = new $controllerName();
-		
+
 		$methodExists = method_exists($controller, $action);
 		if($methodExists)
 		{
@@ -61,17 +61,17 @@ if(!empty($page) && !empty($action))
 		}
 		else
 		{
-			Error::add('action "'.$action.'" is unknown');
+			ErrorPerso::add('action "'.$action.'" is unknown');
 		}
 	}
 	else
 	{
-		Error::add('page "'.$page.'" is unknown');
+		ErrorPerso::add('page "'.$page.'" is unknown');
 	}
 }
 else
 {
-	Error::add('page and/or action are not set');
+	ErrorPerso::add('page and/or action are not set');
 }
 
 //send response

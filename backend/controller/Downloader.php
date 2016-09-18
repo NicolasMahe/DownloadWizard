@@ -14,7 +14,7 @@ class DownloaderController
             Response::setStatus('success');
             Response::setData($data);
         } else {
-            Error::add('hash is empty');
+            ErrorPerso::add('hash is empty');
             Response::setStatus('error');
         }
     }
@@ -41,7 +41,7 @@ class DownloaderController
             Response::setStatus('success');
             Response::setData($data);
         } else {
-            Error::add('hash is empty');
+            ErrorPerso::add('hash is empty');
             Response::setStatus('error');
         }
     }
@@ -58,7 +58,7 @@ class DownloaderController
             Response::setStatus('success');
             Response::setData($data);
         } else {
-            Error::add('hash is empty');
+            ErrorPerso::add('hash is empty');
             Response::setStatus('error');
         }
     }
@@ -75,7 +75,7 @@ class DownloaderController
             Response::setStatus('success');
             Response::setData($data);
         } else {
-            Error::add('hash is empty');
+            ErrorPerso::add('hash is empty');
             Response::setStatus('error');
         }
     }
@@ -92,7 +92,7 @@ class DownloaderController
             Response::setStatus('success');
             Response::setData($data);
         } else {
-            Error::add('hash is empty');
+            ErrorPerso::add('hash is empty');
             Response::setStatus('error');
         }
     }
@@ -109,7 +109,7 @@ class DownloaderController
             Response::setStatus('success');
             Response::setData($data);
         } else {
-            Error::add('hash is empty');
+            ErrorPerso::add('hash is empty');
             Response::setStatus('error');
         }
     }
@@ -126,7 +126,7 @@ class DownloaderController
             Response::setStatus('success');
             Response::setData($data);
         } else {
-            Error::add('hash is empty');
+            ErrorPerso::add('hash is empty');
             Response::setStatus('error');
         }
     }
@@ -143,7 +143,7 @@ class DownloaderController
             Response::setStatus('success');
             Response::setData($data);
         } else {
-            Error::add('hash is empty');
+            ErrorPerso::add('hash is empty');
             Response::setStatus('error');
         }
     }
@@ -171,7 +171,7 @@ class DownloaderController
             Response::setStatus('success');
             Response::setData($data);
         } else {
-            Error::add('download or upload is empty');
+            ErrorPerso::add('download or upload is empty');
             Response::setStatus('error');
         }
     }

@@ -21,25 +21,25 @@ class Meta
 
                             if(!$methodExistsGet)
                             {
-                                    Error::add('meta method get do not exist');
+                                    ErrorPerso::add('meta method get do not exist');
                                     $this->meta = null;
                                     return;
                             }
                             if(!$methodExistsSearch)
                             {
-                                    Error::add('meta method search do not exist');
+                                    ErrorPerso::add('meta method search do not exist');
                                     $this->meta = null;
                                     return;
                             }
                     }
                     else
                     {
-                            Error::add('meta "'.$meta.'" is unknown');
+                            ErrorPerso::add('meta "'.$meta.'" is unknown');
                     }
             }
             else
             {
-                    Error::add('meta is empty');
+                    ErrorPerso::add('meta is empty');
             }
     }
 

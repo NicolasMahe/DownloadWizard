@@ -54,6 +54,6 @@ $test = new TableTest();
 
 $test->testAll();
 
-print_r(Error::getAll());
+print_r(ErrorPerso::getAll());
 
 echo "</pre>";

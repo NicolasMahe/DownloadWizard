@@ -21,25 +21,25 @@ class Tracker
 			
 				if(!$methodExistsSearch)
 				{
-					Error::add('tracker method search do not exist');
+					ErrorPerso::add('tracker method search do not exist');
 					$this->tracker = null;
 					return;
 				}
 				else if(!$methodExistsDownload)
 				{
-					Error::add('tracker method download do not exist');
+					ErrorPerso::add('tracker method download do not exist');
 					$this->tracker = null;
 					return;
 				}
 			}
 			else
 			{
-				Error::add('tracker "'.$tracker.'" is unknown');
+				ErrorPerso::add('tracker "'.$tracker.'" is unknown');
 			}
 		}
 		else
 		{
-			Error::add('tracker is empty');
+			ErrorPerso::add('tracker is empty');
 		}
 	}
 	
@@ -82,13 +82,13 @@ class Tracker
 				else
 				{
 					Log::add('tracker', 'download', 'error', 'Error during writing torrent: "'.$filename.'"');
-					Error::add('Error during writing torrent: "'.$filename.'"');
+					ErrorPerso::add('Error during writing torrent: "'.$filename.'"');
 				}
 			}
 			else
 			{
 				Log::add('tracker', 'download', 'error', 'Download failed data are empty for torrent: "'.$filename.'"');
-				Error::add('Download failed, data are empty');
+				ErrorPerso::add('Download failed, data are empty');
 			}
 		}
 					

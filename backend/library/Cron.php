@@ -85,7 +85,7 @@ class Cron
 
 	                        if(!$retour)
 	                        {
-	                            Error::add('error during update cron watchlist item');
+	                            ErrorPerso::add('error during update cron watchlist item');
 	                            Response::setStatus('error');
 	                        }
 

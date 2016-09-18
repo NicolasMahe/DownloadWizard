@@ -44,7 +44,7 @@ class TrackerController
 		}
 		else
 		{
-			Error::add('search and/or tracker is empty');
+			ErrorPerso::add('search and/or tracker is empty');
 		}
 	}
 	
@@ -65,7 +65,7 @@ class TrackerController
             }
             else
             {
-                Error::add('url and/or filename and/or tracker is empty');
+                ErrorPerso::add('url and/or filename and/or tracker is empty');
             }
 	}
 }
